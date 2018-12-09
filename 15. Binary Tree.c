@@ -68,23 +68,64 @@ node* createTree()
 
 void preOrderTraversal(node* aNode)
 {
-    printf("%d ", aNode->data);
-    if(aNode->left!= NULL)
+    //Root, Left, Right
+
+    printf("%d ", aNode->data); //Root
+    if(aNode->left!= NULL) //Left
     {
         preOrderTraversal(aNode->left);
     }
 
-    if(aNode->right!= NULL)
+    if(aNode->right!= NULL) //Right
     {
         preOrderTraversal(aNode->right);
     }
 }
 
+void postOrderTraversal(node *aNode)
+{
+    //Left, Right, Root
+
+    if(aNode->left!= NULL) //Left
+    {
+        postOrderTraversal(aNode->left);
+    }
+
+    if(aNode->right!= NULL) //Right
+    {
+        postOrderTraversal(aNode->right);
+    }
+
+    printf("%d ", aNode->data); //Root
+}
+
+void inOrderTraversal(node* aNode)
+{
+    if(aNode->left!= NULL)
+    {
+        inOrderTraversal(aNode->left);
+    }
+
+    printf("%d ", aNode->data);
+
+    if(aNode->right!= NULL)
+    {
+        inOrderTraversal(aNode->right);
+    }
+}
 
 int main()
 {
     node* root = createTree();
+
+    printf("Pre Order: \n");
     preOrderTraversal(root);
+
+    printf("\nPost Order: \n");
+    postOrderTraversal(root);
+
+    printf("\nIn Order: \n");
+    inOrderTraversal(root);
 
     return 0;
 }
