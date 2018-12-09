@@ -101,14 +101,15 @@ void postOrderTraversal(node *aNode)
 
 void inOrderTraversal(node* aNode)
 {
-    if(aNode->left!= NULL)
+    //Left, Root, Right
+    if(aNode->left!= NULL) //Left
     {
         inOrderTraversal(aNode->left);
     }
 
-    printf("%d ", aNode->data);
+    printf("%d ", aNode->data); //Root
 
-    if(aNode->right!= NULL)
+    if(aNode->right!= NULL) //Right
     {
         inOrderTraversal(aNode->right);
     }
