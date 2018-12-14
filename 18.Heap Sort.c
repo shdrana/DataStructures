@@ -69,7 +69,7 @@ void heapSort(int heap[], int heapSize)
 {
     int i, temp;
 
-    buildMaxHeap(heap, heapSize);
+    buildMaxHeap(heap, heapSize); //Building heap
 
     for(i = heapSize; i>1; i--)
     {
@@ -87,8 +87,6 @@ void heapSort(int heap[], int heapSize)
 int main()
 {
     int heap[] = {0, 20, 21, 33, 55, 23, 28, 45}; //we will not use first index
-
-
 
     heapSort(heap, 7);
     int i;
