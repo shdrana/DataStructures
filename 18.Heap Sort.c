@@ -40,6 +40,8 @@ void maxHefipy(int heap[], int heapSize, int i)
 
     }
 
+
+
     if(largest!= i)
     {
         int temp = heap[i];
@@ -48,6 +50,8 @@ void maxHefipy(int heap[], int heapSize, int i)
 
         maxHefipy(heap, heapSize, largest);
     }
+
+
 
 }
 
@@ -61,21 +65,38 @@ void buildMaxHeap(int heap[], int heapSize)
 
 }
 
+void heapSort(int heap[], int heapSize)
+{
+    int i, temp;
+
+    buildMaxHeap(heap, heapSize);
+
+    for(i = heapSize; i>1; i--)
+    {
+        temp = heap[1];
+        heap[1] = heap[heapSize];
+        heap[heapSize] = temp;
+
+        heapSize--;
+
+        maxHefipy(heap, heapSize, 1);
+    }
+}
+
 
 int main()
 {
-    int i;
     int heap[] = {0, 20, 21, 33, 55, 23, 28, 45}; //we will not use first index
 
-    //calling every node to heapify. it will start from heapsize/2
 
-    buildMaxHeap(heap, 7);
 
-    //print the heap
-    for(i = 1; i<8; i++)
+    heapSort(heap, 7);
+    int i;
+    for(i = 1; i<=7; i++)
     {
         printf("%d ", heap[i]);
     }
+
 
     return 0;
 }
