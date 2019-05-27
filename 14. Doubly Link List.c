@@ -34,8 +34,6 @@ void inserEnd(int value)
         person->prev = current;
         person->next = NULL;
         current = person;
-
-        // printf("%d", person->prev->data);
     }
 
 

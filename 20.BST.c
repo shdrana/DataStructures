@@ -1,91 +1,167 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int heapSize;
+/**
+    Binary Search Tree Implementation
+    @Author Sohid Ullah
+    @Since 2019-05-27
+**/
 
-int left(int i)
+struct Node
 {
-    return 2*i;
-}
+    int data;
+    struct Node *parent;
+    struct Node *left;
+    struct Node *right;
 
-int right(int i)
+};
+
+typedef struct Node Node;
+
+Node *createNode(int item)
 {
-    return (2*i)+1;
-}
-
-
-int parent(int i)
-{
-    return i/2;
-}
-
-//forming normal binary tree into heap
-void maxHefipy(int heap[], int i)
-{
-    int l, r, largest;
-
-    l = left(i);
-    r = right(i);
-
-    if(l<=heapSize && heap[l]>heap[i])
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    if(newNode == NULL)
     {
-        largest = l;
+        printf("Error Creating node\n");
+        exit(1);
+    }
+
+    newNode->data = item;
+    newNode->parent = NULL;
+    newNode->left = NULL;
+    newNode->right = NULL;
+
+    return newNode;
+}
+
+void addLeftChild(Node *node, Node *child)
+{
+    node->left = child;
+    if(child != NULL)
+    {
+        child->parent = node;
+    }
+}
+
+void addRightChild(Node *node, Node *child)
+{
+    node->right = child;
+    if(child != NULL)
+    {
+        child->parent = node;
+    }
+}
+
+Node *bstInsert(Node *root, Node *node)
+{
+    Node *parentNode, *currentNode;
+    if(root == NULL)
+    {
+        root = node;
+    }
+
+    currentNode = root;
+
+    while(currentNode!= NULL)
+    {
+        parentNode = currentNode;
+        if(node->data<currentNode->data)
+        {
+            currentNode = currentNode->left;
+        }
+        else
+        {
+            currentNode = currentNode->right;
+        }
+
+    }
+
+    if(node->data<parentNode->data)
+    {
+        addLeftChild(parentNode, node);
     }
     else
     {
-        largest = i;
+        addRightChild(parentNode, node);
     }
 
-    if(r<=heapSize && heap[r]>heap[largest])
-    {
-        largest = r;
-
-    }
-
-    if(largest!= i)
-    {
-        int temp = heap[i];
-        heap[i] = heap[largest];
-        heap[largest] = temp;
-
-        maxHefipy(heap,largest);
-    }
+    return root;
 }
 
-void buildMaxHeap(int heap[])
+Node *createBST()
 {
+    Node *root, *node;
+
     int i;
-    for(i = heapSize/2; i>=1; i--)
+
+    int arr[] = {5, 17, 3, 7, 12, 19, 1, 4};
+
+    root = createNode(10);
+
+    for(i = 0; i<8; i++)
     {
-        maxHefipy(heap, i);
+        node = createNode(arr[i]);
+        root = bstInsert(root, node);
+    }
+    return root;
+}
+
+void inOrder(Node *node)
+{
+    /**
+        in binary search tree in order all data will be printed in
+        sorted order
+    **/
+
+    if(node->left!= NULL)
+    {
+        inOrder(node->left);
+    }
+    printf("%d ", node->data);
+
+    if(node->right!= NULL)
+    {
+        inOrder(node->right);
     }
 
 }
 
-int extractMaximum(int heap[])
+Node *bstSearch(Node *root, int item)
 {
-    int maxItem = heap[1];
-    heap[1] = heap[heapSize];
-    heap[heapSize] = maxItem;
-    heapSize--;
-    maxHefipy(heap, 1);
+    Node *node = root;
 
-    return maxItem;
+    while(node!= NULL)
+    {
+        if(node->data == item)
+        {
+
+            return node;
+        }
+        if(node->data>item)
+        {
+            node = node->left;
+        }
+        else
+        {
+            node = node->right;
+        }
+    }
+
 }
-
-
 
 int main()
 {
-    int heap[] = {0, 20, 21, 33, 55, 23, 28, 45}; //we will not use first index
+    Node *root = createBST();
 
-    heapSize = 7;
-    buildMaxHeap(heap);
+    Node *node = bstSearch(root, 100);
+    if(node!= NULL){
+        printf("%d", node->data);
+    }
+    else{
+        printf("Node Not Found\n");
+    }
 
-
-    printf("%d\n", extractMaximum(heap));
-    printf("%d\n", extractMaximum(heap));
-    printf("%d\n", extractMaximum(heap));
 
 
 
