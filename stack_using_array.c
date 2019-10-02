@@ -7,36 +7,38 @@ int top = -1;
 
 int push(int data)
 {
+    top++;
     if(top==MAX)
     {
-        printf("Stack is full\n");
-        return;
+        printf("Stack is full: ");
+        return sizeOfStack()-1;
     }
-    stack[++top] = data;
+    stack[top] = data;
+    return sizeOfStack();
 }
 
 int pop()
 {
     if(top == -1)
     {
-        printf("Stack is empty!!");
-        return -1;
+        printf("Stack is empty: ");
+        return sizeOfStack();
     }
-
     return stack[top--];
+}
+
+int sizeOfStack()
+{
+    return top+1;
 }
 
 int main()
 {
     push(10);
-    push(20);
-    push(30);
-    push(40);
-    push(40);
-    push(40);
-    push(40);
 
     printf("%d\n", pop());
+    printf("%d\n", pop());
+
 
 
 
