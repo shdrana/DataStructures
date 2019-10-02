@@ -3,25 +3,30 @@
 #define MAX 5
 
 int queue[MAX];
-int front = 0;
-int rear  = 0;
+int front = -1;
+int rear  = -1;
 
 int enqueue(int data)
 {
-    if(rear==MAX)
+    if (rear == MAX - 1)
     {
-        printf("Queue is full\n");
+        printf("Queue is Full \n");
         return;
     }
-    queue[rear++] = data;
+
+    if (rear == - 1)
+        front = 0;
+
+    rear = rear+1;
+    queue[rear] = data;
 }
 
 int dequeue()
 {
-    if(front == MAX || front == rear)
+    if(front> rear)
     {
         printf("Queue is empty\n");
-        return -1;
+        return 0;
     }
 
     return queue[front++];
